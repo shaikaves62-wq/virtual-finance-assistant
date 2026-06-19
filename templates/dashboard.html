@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="centered-container">
+    <div class="header">
+    <h1>Dashboard</h1>
+    <img src="{{ url_for('static', filename='dashboard-mascot.png') }}" class="floating-img" alt="Dashboard Mascot" />
+</div>
+
+
+    <div class="card">
+        <div class="footer-btn-container">
+            <a href="{{ url_for('upload') }}"><button class="button-secondary">Back to Upload</button></a>
+        </div>
+
+        <h2 style="color:#3C79F5;">Transaction Preview</h2>
+        <div style="overflow-x:auto;">
+            {{ data|safe }}
+        </div>
+
+        <h2 style="color:#3C79F5; margin-top: 36px;">Financial Summary</h2>
+        <ul style="font-size: 1.15em; color: #496486;">
+            <li><strong>Total Income:</strong> ${{ summary.total_income }}</li>
+            <li><strong>Total Expenses:</strong> ${{ summary.total_expenses }}</li>
+            <li><strong>Savings:</strong> ${{ summary.savings }}</li>
+        </ul>
+
+        <h2 style="color:#3C79F5; margin-top: 36px;">Spending by Category</h2>
+        <img src="{{ plot }}" alt="Spending Chart" style="width: 100%; border-radius: 20px; box-shadow: 0 6px 25px rgba(60, 100, 200, 0.15); margin-bottom: 20px;"/>
+
+        <h2 style="color:#3C79F5; margin-top: 36px;">Set Monthly Budget</h2>
+        <form method="POST" style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <input type="number" name="budget" placeholder="Enter budget amount" min="0" step="0.01" value="{{ budget or '' }}" required style="flex:1;">
+            <button class="button" type="submit">Set Budget</button>
+        </form>
+
+        {% if budget_message %}
+        <p style="margin-top: 18px; font-weight:600; color:#d14f4f;">{{ budget_message }}</p>
+        {% endif %}
+
+        <div class="footer-btn-container" style="margin-top: 40px;">
+            <a href="{{ url_for('chat') }}"><button class="button">Go to Chatbot</button></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="centered-container">
+    <div class="header">
+        <h1>Login</h1>
+        <img src="{{ url_for('static', filename='home-mascot.png') }}" class="floating-img" alt="Login Mascot" />
+    </div>
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+      {% if messages %}
+        <ul style="color:red; font-weight:600; font-size:1.1em;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="card" style="text-align:center;">
+        <form action="{{ url_for('login') }}" method="POST">
+            <input type="email" name="email" placeholder="Enter your email" required style="margin-bottom:18px; padding:12px; width:80%; font-size:1em;"/>
+            <input type="password" name="password" placeholder="Enter your password" required style="margin-bottom:18px; padding:12px; width:80%; font-size:1em;"/>
+            <button class="button" type="submit">Login</button>
+        </form>
+        <p style="margin-top:12px;">Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+    </div>
+</div>
+</body>
+</html>
+   login.html

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upload Transactions</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="centered-container">
+    <div class="header">
+        <h1>Upload Your Financial CSV</h1>
+        <img src="{{ url_for('static', filename='next-page-mascot.png') }}" class="floating-img" alt="Upload Mascot" />
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color:#d14f4f; font-weight:600; font-size:1.1em;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="card" style="text-align:center;">
+        <form method="POST" enctype="multipart/form-data">
+            <label for="csv_type" style="font-weight:600;">Select CSV Type:</label><br>
+            <select name="csv_type" id="csv_type" required style="padding:8px 12px; font-size:1em; border-radius:8px; margin:12px 0;">
+                <option value="transactions" selected>Transactions CSV</option>
+                <option value="budget">Budget CSV</option>
+                <option value="investments">Investments CSV</option>
+                <!-- Add other types as needed -->
+            </select><br>
+            <input type="file" name="file" accept=".csv" required style="margin-bottom:18px;"/>
+            <button class="button" type="submit">Upload CSV</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
